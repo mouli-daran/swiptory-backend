@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-const User = require("./user");
+const User = require("../model/user");
 
-const stories = new mongoose.Schema({
+const storiesSchema = new mongoose.Schema({
   bookmark: {
     type: Boolean,
     default: false,
@@ -39,4 +39,4 @@ const stories = new mongoose.Schema({
   ],
 });
 
-module.exports = mongoose.model("Stories", stories);
+module.exports = mongoose.model("Stories", storiesSchema);

@@ -9,15 +9,15 @@ mongoDB();
 // This will allow all CORS requests
 app.use(cors());
 
-// app.options("*", cors());
+app.options("*", cors());
 
-// app.use(
-//   cors({
-//     origin: "*",
-//     methods: ["post", "get", "put", "delete"],
-//     "Access-Control-Allow-Credentials": true,
-//   })
-// );
+app.use(
+  cors({
+    origin: "*",
+    methods: ["post", "get", "put", "delete"],
+    "Access-Control-Allow-Credentials": true,
+  })
+);
 
 // ? Regular Middleware
 app.use(express.json());
@@ -28,9 +28,11 @@ const fileUpload = require("express-fileupload");
 
 // Import all routes here
 const user = require("./routes/user");
+const stories = require("./routes/stories");
 
 // Router Middleware
 app.use("/api/v1", user);
+app.use("/api/v1/stories", stories);
 
 const port = process.env.PORT || 4000;
 app.listen(port, console.log("server is running at " + port, "..."));

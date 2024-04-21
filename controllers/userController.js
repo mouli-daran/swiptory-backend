@@ -1,3 +1,4 @@
+const Stories = require("../model/stories");
 const User = require("../model/user");
 const cookieToken = require("../utils/cookieToken");
 
@@ -78,7 +79,8 @@ exports.logOut = async (req, res, next) => {
 exports.getUserdetails = async (req, res, next) => {
   try {
     console.log(req.params.id);
-    const individualUserDetails = await User.findById(req.params.id);
+    const userId = req.params.id;
+    const individualUserDetails = await User.findById(userId);
 
     if (!individualUserDetails) {
       return res.status(400).json({
@@ -87,9 +89,13 @@ exports.getUserdetails = async (req, res, next) => {
       });
     }
 
+    // Find stories associated with the user
+    const userStories = await Stories.find({ userId });
+
     res.status(200).json({
       success: true,
       user: individualUserDetails,
+      stories: userStories,
     });
   } catch (error) {
     console.log(error);
