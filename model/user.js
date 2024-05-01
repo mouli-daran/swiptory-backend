@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema({
     minlength: [6, "password should be of 6 characters"],
     select: false,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 // * Encrypt Password before save == Pre Hooks
